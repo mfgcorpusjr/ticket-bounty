@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BookIcon, LibraryIcon } from "lucide-react";
 
 import {
@@ -30,12 +31,16 @@ export default async function AccountDropdown() {
       <DropdownMenuContent sideOffset={8} alignOffset={-98}>
         <DropdownMenuGroup>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <LibraryIcon /> All Tickets
+          <DropdownMenuItem asChild>
+            <Link href="/" className="flex items-center gap-2">
+              <LibraryIcon /> All Tickets
+            </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            <BookIcon /> My Tickets
+          <DropdownMenuItem asChild>
+            <Link href="/tickets" className="flex items-center gap-2">
+              <BookIcon /> My Tickets
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
 

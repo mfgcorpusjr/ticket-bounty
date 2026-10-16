@@ -6,7 +6,11 @@ export default function SignOutButton() {
   const { isPending, handleSignOut } = useSignOut();
 
   return (
-    <button disabled={isPending} onClick={handleSignOut}>
+    <button
+      className="w-full text-left"
+      disabled={isPending}
+      onClick={handleSignOut}
+    >
       Sign Out
     </button>
   );
