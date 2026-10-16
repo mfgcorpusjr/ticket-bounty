@@ -22,11 +22,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${inter.className} h-full antialiased`}
     >
-      <body>
+      <body className="min-h-screen flex flex-col">
         <ThemeProvider>
           <NavBar />
 
-          <Container className="py-24">{children}</Container>
+          <Container className="flex-1 flex flex-col py-24">
+            {children}
+          </Container>
         </ThemeProvider>
       </body>
     </html>
