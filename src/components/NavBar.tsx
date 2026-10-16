@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import Container from "@/components/Container";
 import ThemeSwitcher from "@/features/theme/components/ThemeSwitcher";
 
-export default function NavBar() {
+import { getSession } from "@/features/auth/utils/helpers";
+
+export default async function NavBar() {
+  const session = await getSession();
+
   return (
     <nav className="fixed top-0 left-0 right-0 border-b py-4">
       <Container className="flex justify-between items-center">
@@ -20,13 +24,19 @@ export default function NavBar() {
         <div className="flex items-center gap-2">
           <ThemeSwitcher />
 
-          <Button asChild variant="outline">
-            <Link href="/sign-up">Sign Up</Link>
-          </Button>
+          {session ? (
+            <>Dropdown menu</>
+          ) : (
+            <>
+              <Button asChild variant="outline">
+                <Link href="/sign-up">Sign Up</Link>
+              </Button>
 
-          <Button asChild>
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
+              <Button asChild>
+                <Link href="/sign-in">Sign In</Link>
+              </Button>
+            </>
+          )}
         </div>
       </Container>
     </nav>
