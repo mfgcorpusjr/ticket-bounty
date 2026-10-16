@@ -3,7 +3,7 @@ import { KanbanIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Container from "@/components/Container";
-import AccountDropdown from "@/components/AccountDropdown";
+import AccountDropdown from "@/features/auth/components/AccountDropdown";
 import ThemeSwitcher from "@/features/theme/components/ThemeSwitcher";
 
 import { getSession } from "@/features/auth/utils/helpers";

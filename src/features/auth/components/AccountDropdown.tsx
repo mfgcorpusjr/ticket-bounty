@@ -31,6 +31,7 @@ export default async function AccountDropdown() {
       <DropdownMenuContent sideOffset={8} alignOffset={-98}>
         <DropdownMenuGroup>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
+
           <DropdownMenuItem asChild>
             <Link href="/" className="flex items-center gap-2">
               <LibraryIcon /> All Tickets
