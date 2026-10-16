@@ -6,6 +6,8 @@ import { headers } from "next/headers";
 import {
   SignUpFormData,
   signUpFormSchema,
+  SignInFormData,
+  signInFormSchema,
 } from "@/features/auth/utils/schemas";
 import { auth } from "@/lib/auth";
 import { renderError } from "@/utils/helpers";
@@ -37,4 +39,18 @@ export const signOut = async () => {
   }
 
   redirect("/sign-in");
+};
+
+export const signIn = async (formData: SignInFormData) => {
+  try {
+    const parsedData = signInFormSchema.parse(formData);
+
+    await auth.api.signInEmail({
+      body: parsedData,
+    });
+  } catch (error) {
+    return renderError(error);
+  }
+
+  redirect("/tickets");
 };

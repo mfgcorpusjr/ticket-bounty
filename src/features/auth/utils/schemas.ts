@@ -14,3 +14,10 @@ export const signUpFormSchema = z
   });
 
 export type SignUpFormData = z.infer<typeof signUpFormSchema>;
+
+export const signInFormSchema = z.object({
+  email: z.email().trim(),
+  password: z.string().trim(),
+});
+
+export type SignInFormData = z.infer<typeof signInFormSchema>;
