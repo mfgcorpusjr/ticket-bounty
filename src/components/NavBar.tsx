@@ -3,6 +3,7 @@ import { KanbanIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Container from "@/components/Container";
+import ThemeSwitcher from "@/features/theme/components/ThemeSwitcher";
 
 export default function NavBar() {
   return (
@@ -17,6 +18,8 @@ export default function NavBar() {
         </Button>
 
         <div className="flex items-center gap-2">
+          <ThemeSwitcher />
+
           <Button asChild variant="outline">
             <Link href="/sign-up">Sign Up</Link>
           </Button>
