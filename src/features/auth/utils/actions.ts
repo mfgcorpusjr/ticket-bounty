@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 import {
   SignUpFormData,
@@ -24,4 +25,16 @@ export const signUp = async (formData: SignUpFormData) => {
   }
 
   redirect("/tickets");
+};
+
+export const signOut = async () => {
+  try {
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  } catch (error) {
+    return renderError(error);
+  }
+
+  redirect("/sign-in");
 };

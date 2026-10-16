@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import SignOutButton from "@/features/auth/components/SignOutButton";
 
 import { getSession } from "@/features/auth/utils/helpers";
 
@@ -41,7 +42,9 @@ export default async function AccountDropdown() {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>Sign Out</DropdownMenuItem>
+          <DropdownMenuItem>
+            <SignOutButton />
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
