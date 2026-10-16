@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 
 import ThemeProvider from "@/features/theme/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 import NavBar from "@/components/NavBar";
 import Container from "@/components/Container";
 
@@ -29,6 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Container className="flex-1 flex flex-col py-24">
             {children}
           </Container>
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

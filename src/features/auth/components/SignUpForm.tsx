@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/card";
 import FormInput from "@/components/form/FormInput";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
 import useSignUp from "@/features/auth/hooks/useSignUp";
 
 export default function SignUpForm() {
-  const { form, handleSignUp } = useSignUp();
+  const { form, handleSignUp, isPending } = useSignUp();
 
   return (
     <Card className="w-full max-w-md">
@@ -46,12 +47,17 @@ export default function SignUpForm() {
             placeholder="Confirm Password"
           />
 
-          <Button>Sign Up</Button>
+          <Button disabled={isPending}>
+            {isPending && <Spinner data-icon="inline-start" />}
+            Sign Up
+          </Button>
         </form>
       </CardContent>
 
       <CardFooter>
-        <Link href="/sign-in">Have an account? Sign in now.</Link>
+        <Link href="/sign-in" className="text-muted-foreground">
+          Have an account? Sign in now.
+        </Link>
       </CardFooter>
     </Card>
   );
