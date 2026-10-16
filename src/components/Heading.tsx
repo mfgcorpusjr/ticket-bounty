@@ -8,7 +8,7 @@ type Props = {
 export default function Heading({ title, description }: Props) {
   return (
     <div className="space-y-8">
-      <div>
+      <div className="px-4 sm:px-6 md:px-8">
         <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
 
         {description && (
