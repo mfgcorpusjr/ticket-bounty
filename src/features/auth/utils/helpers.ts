@@ -17,5 +17,5 @@ export const getSessionOrRedirect = cache(async () => {
 
   if (session) return session;
 
-  redirect("/");
+  redirect("/sign-in");
 });
