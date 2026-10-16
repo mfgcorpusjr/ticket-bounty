@@ -3,6 +3,7 @@ import { KanbanIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Container from "@/components/Container";
+import AccountDropdown from "@/components/AccountDropdown";
 import ThemeSwitcher from "@/features/theme/components/ThemeSwitcher";
 
 import { getSession } from "@/features/auth/utils/helpers";
@@ -25,7 +26,7 @@ export default async function NavBar() {
           <ThemeSwitcher />
 
           {session ? (
-            <>Dropdown menu</>
+            <AccountDropdown />
           ) : (
             <>
               <Button asChild variant="outline">
