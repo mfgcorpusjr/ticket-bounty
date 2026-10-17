@@ -1,5 +1,5 @@
 import type { Ticket } from "@/generated/prisma/client";
 
-export const assertTicketBountyToNumber = (ticket: Ticket) => {
+export const castTicketBountyToNumber = (ticket: Ticket) => {
   return { ...ticket, bounty: ticket.bounty.toNumber() };
 };
