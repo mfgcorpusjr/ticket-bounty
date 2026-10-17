@@ -78,8 +78,8 @@ model Ticket {
   user      User @relation(fields: [userId], references: [id])
   title     String @db.VarChar(191)
   content   String @db.VarChar(1000)
-  deadline  DateTime
-  bounty    Decimal @db.Decimal(9,2)
+  deadline  DateTime @db.Date
+  bounty    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   comments  Comment[]
