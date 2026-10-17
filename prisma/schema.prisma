@@ -17,6 +17,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  tickets       Ticket[]
+  comments      Comment[]
 
   @@unique([email])
   @@map("user")
@@ -68,4 +70,28 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Ticket {
+  id        String @id @default(uuid())
+  userId    String
+  user      User @relation(fields: [userId], references: [id])
+  title     String @db.VarChar(191)
+  content   String @db.VarChar(1000)
+  deadline  DateTime
+  bounty    Decimal @db.Decimal(9,2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comments  Comment[]
+}
+
+model Comment {
+  id        String @id @default(uuid())
+  userId    String
+  user      User @relation(fields: [userId], references: [id])
+  ticketId  String
+  ticket    Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
