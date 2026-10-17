@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { startOfDay } from "date-fns";
 
 export const upsertTicketFormSchema = z.object({
   title: z
@@ -13,7 +14,7 @@ export const upsertTicketFormSchema = z.object({
     .max(1000, { error: "Content cannot be longer than 1000 characters" }),
   deadline: z.coerce
     .date<Date>({ error: "Deadline is required" })
-    .min(new Date(), { error: "Deadline must be today or later" }),
+    .min(startOfDay(new Date()), { error: "Deadline must be today or later" }),
   bounty: z.coerce
     .number<number>({ error: "Bounty is required" })
     .min(1, { error: "Bounty must be at least 1" })
