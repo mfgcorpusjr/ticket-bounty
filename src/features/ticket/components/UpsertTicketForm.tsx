@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import FormInput from "@/components/form/FormInput";
+import FormDatePicker from "@/components/form/FormDatePicker";
 import FormTextarea from "@/components/form/FormTextarea";
 
 import useUpsertTicket from "@/features/ticket/hooks/useUpsertTicket";
@@ -44,11 +45,10 @@ export default function UpsertTicketForm({
 
           <FormTextarea name="content" control={form.control} label="Content" />
 
-          <FormInput
+          <FormDatePicker
             name="deadline"
             control={form.control}
             label="Deadline"
-            type="date"
           />
 
           <FormInput name="bounty" control={form.control} label="Bounty" />

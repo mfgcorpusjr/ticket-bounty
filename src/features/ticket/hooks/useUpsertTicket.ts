@@ -31,13 +31,14 @@ const useUpsertTicket = (ticket?: AppTicket) => {
 
       if (success) {
         toast.success(message);
-        form.reset();
+
+        if (ticket) {
+          router.push(`/tickets/${ticket.id}`);
+        } else {
+          form.reset();
+        }
       } else {
         toast.error(message);
-      }
-
-      if (ticket) {
-        router.push(`/tickets/${ticket.id}`);
       }
     });
   };
