@@ -14,10 +14,6 @@ const useSignIn = () => {
 
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
 
   const handleSignIn = (formData: SignInFormData) => {

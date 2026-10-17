@@ -1,0 +1,45 @@
+import { ComponentProps } from "react";
+import {
+  Controller,
+  type FieldValues,
+  type Path,
+  type Control,
+} from "react-hook-form";
+
+import { Textarea } from "@/components/ui/textarea";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+
+type Props<T extends FieldValues> = {
+  name: Path<T>;
+  control: Control<T>;
+  label?: string;
+} & ComponentProps<typeof Textarea>;
+
+export default function FormTextarea<T extends FieldValues>({
+  name,
+  control,
+  label,
+  ...rest
+}: Props<T>) {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid}>
+          {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+
+          <Textarea
+            {...rest}
+            {...field}
+            id={field.name}
+            aria-invalid={fieldState.invalid}
+            value={field.value ?? ""}
+          />
+
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+        </Field>
+      )}
+    />
+  );
+}

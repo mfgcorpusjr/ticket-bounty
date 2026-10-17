@@ -1,3 +1,7 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+
 import {
   UpsertTicketFormData,
   upsertTicketFormSchema,
@@ -34,15 +38,18 @@ export const upsertTicket = async (
       },
       update: parsedData,
       where: {
-        id,
+        id: id ?? "",
       },
-    });
-
-    return renderResponse({
-      success: true,
-      message: id ? "Ticket updated" : "Ticket created",
     });
   } catch (error) {
     return renderError(error);
   }
+
+  revalidatePath("/");
+  revalidatePath("/tickets");
+
+  return renderResponse({
+    success: true,
+    message: id ? "Ticket updated" : "Ticket created",
+  });
 };

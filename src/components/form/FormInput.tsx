@@ -34,6 +34,7 @@ export default function FormInput<T extends FieldValues>({
             {...field}
             id={field.name}
             aria-invalid={fieldState.invalid}
+            value={field.value ?? ""}
           />
 
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
