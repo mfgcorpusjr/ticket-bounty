@@ -25,21 +25,28 @@ export default function FormInput<T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
-          {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+      render={({ field, fieldState }) => {
+        let value = field.value || "";
+        if (rest.type === "date" && value) {
+          value = new Date(value).toISOString().slice(0, 10);
+        }
 
-          <Input
-            {...rest}
-            {...field}
-            id={field.name}
-            aria-invalid={fieldState.invalid}
-            value={field.value ?? ""}
-          />
+        return (
+          <Field data-invalid={fieldState.invalid}>
+            {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
 
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </Field>
-      )}
+            <Input
+              {...rest}
+              {...field}
+              id={field.name}
+              aria-invalid={fieldState.invalid}
+              value={value}
+            />
+
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        );
+      }}
     />
   );
 }

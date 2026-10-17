@@ -34,7 +34,7 @@ export default function FormTextarea<T extends FieldValues>({
             {...field}
             id={field.name}
             aria-invalid={fieldState.invalid}
-            value={field.value ?? ""}
+            value={field.value || ""}
           />
 
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

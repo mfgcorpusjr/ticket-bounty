@@ -8,19 +8,26 @@ import {
   upsertTicketFormSchema,
   type UpsertTicketFormData,
 } from "@/features/ticket/utils/schemas";
+import type { AppTicket } from "@/features/ticket/utils/types";
 import { upsertTicket } from "@/features/ticket/utils/actions";
 
-const useUpsertTicket = (id?: string) => {
+const useUpsertTicket = (ticket?: AppTicket) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const form = useForm<UpsertTicketFormData>({
     resolver: zodResolver(upsertTicketFormSchema),
+    defaultValues: {
+      title: ticket?.title,
+      content: ticket?.content,
+      deadline: ticket?.deadline,
+      bounty: ticket?.bounty,
+    },
   });
 
   const handleUpsertTicket = (formData: UpsertTicketFormData) => {
     startTransition(async () => {
-      const { success, message } = await upsertTicket(formData, id);
+      const { success, message } = await upsertTicket(formData, ticket);
 
       if (success) {
         toast.success(message);
@@ -29,8 +36,8 @@ const useUpsertTicket = (id?: string) => {
         toast.error(message);
       }
 
-      if (id) {
-        router.push(`/tickets/${id}`);
+      if (ticket) {
+        router.push(`/tickets/${ticket.id}`);
       }
     });
   };

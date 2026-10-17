@@ -6,25 +6,27 @@ import {
   UpsertTicketFormData,
   upsertTicketFormSchema,
 } from "@/features/ticket/utils/schemas";
+import type { AppTicket } from "@/features/ticket/utils/types";
 import { getSessionOrRedirect } from "@/features/auth/utils/helpers";
 import { prisma } from "@/lib/prisma";
-import { isOwner, renderError, renderResponse } from "@/utils/helpers";
+import { response, errorResponse } from "@/utils/response";
+import { isOwner } from "@/utils/entity";
 
 export const upsertTicket = async (
   formData: UpsertTicketFormData,
-  id?: string,
+  ticket?: AppTicket,
 ) => {
   const session = await getSessionOrRedirect();
 
-  if (id) {
-    const ticket = await prisma.ticket.findUnique({
+  if (ticket) {
+    const foundTicket = await prisma.ticket.findUnique({
       where: {
-        id,
+        id: ticket?.id,
       },
     });
 
-    if (!ticket || !isOwner(session.user.id, ticket)) {
-      return renderResponse({ success: false, message: "Unauthorized" });
+    if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
+      return response({ success: false, message: "Unauthorized" });
     }
   }
 
@@ -38,18 +40,18 @@ export const upsertTicket = async (
       },
       update: parsedData,
       where: {
-        id: id ?? "",
+        id: ticket?.id ?? "",
       },
     });
   } catch (error) {
-    return renderError(error);
+    return errorResponse(error);
   }
 
   revalidatePath("/");
   revalidatePath("/tickets");
 
-  return renderResponse({
+  return response({
     success: true,
-    message: id ? "Ticket updated" : "Ticket created",
+    message: ticket ? "Ticket updated" : "Ticket created",
   });
 };

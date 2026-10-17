@@ -7,25 +7,32 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import FormInput from "@/components/form/FormInput";
-import FormTextarea from "@/components/form/FormTextarea";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import FormInput from "@/components/form/FormInput";
+import FormTextarea from "@/components/form/FormTextarea";
 
 import useUpsertTicket from "@/features/ticket/hooks/useUpsertTicket";
+import type { AppTicket } from "@/features/ticket/utils/types";
 
 type Props = {
-  id?: string;
+  title: string;
+  description: string;
+  ticket?: AppTicket;
 };
 
-export default function UpsertTicketForm({ id }: Props) {
-  const { form, handleUpsertTicket, isPending } = useUpsertTicket(id);
+export default function UpsertTicketForm({
+  title,
+  description,
+  ticket,
+}: Props) {
+  const { form, handleUpsertTicket, isPending } = useUpsertTicket(ticket);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Create Ticket</CardTitle>
-        <CardDescription>A new ticket will be created</CardDescription>
+        <CardTitle className="text-xl">{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -44,13 +51,7 @@ export default function UpsertTicketForm({ id }: Props) {
             type="date"
           />
 
-          <FormInput
-            name="bounty"
-            control={form.control}
-            label="Bounty"
-            type="number"
-            min={1}
-          />
+          <FormInput name="bounty" control={form.control} label="Bounty" />
 
           <Button disabled={isPending}>
             {isPending && <Spinner data-icon="inline-start" />}

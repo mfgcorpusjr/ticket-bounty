@@ -10,7 +10,7 @@ import {
   signInFormSchema,
 } from "@/features/auth/utils/schemas";
 import { auth } from "@/lib/auth";
-import { renderError } from "@/utils/helpers";
+import { errorResponse } from "@/utils/response";
 
 export const signUp = async (formData: SignUpFormData) => {
   try {
@@ -23,7 +23,7 @@ export const signUp = async (formData: SignUpFormData) => {
       },
     });
   } catch (error) {
-    return renderError(error);
+    return errorResponse(error);
   }
 
   redirect("/tickets");
@@ -35,7 +35,7 @@ export const signOut = async () => {
       headers: await headers(),
     });
   } catch (error) {
-    return renderError(error);
+    return errorResponse(error);
   }
 
   redirect("/sign-in");
@@ -49,7 +49,7 @@ export const signIn = async (formData: SignInFormData) => {
       body: parsedData,
     });
   } catch (error) {
-    return renderError(error);
+    return errorResponse(error);
   }
 
   redirect("/tickets");

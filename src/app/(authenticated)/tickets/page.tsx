@@ -7,7 +7,10 @@ export default function TicketsPage() {
       <Heading title="My Tickets" description="All your tickets at one place" />
 
       <div className="w-full max-w-xl mx-auto">
-        <UpsertTicketForm />
+        <UpsertTicketForm
+          title="Create Ticket"
+          description="A new ticket will be created"
+        />
       </div>
     </div>
   );
