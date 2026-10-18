@@ -45,7 +45,7 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
   );
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 animate-fade-in-from-top">
       <Card className="flex-1">
         <CardHeader>
           <CardTitle>

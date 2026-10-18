@@ -29,7 +29,7 @@ export default function UpsertTicketForm({
   const { form, handleUpsertTicket, isPending } = useUpsertTicket(ticket);
 
   return (
-    <Card>
+    <Card className="animate-fade-in-from-top">
       <CardHeader>
         <CardTitle className="text-xl">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
