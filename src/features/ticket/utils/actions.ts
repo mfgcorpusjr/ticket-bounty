@@ -11,6 +11,7 @@ import { getSessionOrRedirect } from "@/features/auth/utils/helpers";
 import { prisma } from "@/lib/prisma";
 import { response, errorResponse } from "@/utils/response";
 import { isOwner } from "@/utils/entity";
+import { TicketStatus } from "@/generated/prisma/enums";
 
 export const upsertTicket = async (
   formData: UpsertTicketFormData,
@@ -18,19 +19,19 @@ export const upsertTicket = async (
 ) => {
   const session = await getSessionOrRedirect();
 
-  if (ticket) {
-    const foundTicket = await prisma.ticket.findUnique({
-      where: {
-        id: ticket?.id,
-      },
-    });
-
-    if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
-      return response({ success: false, message: "Unauthorized" });
-    }
-  }
-
   try {
+    if (ticket) {
+      const foundTicket = await prisma.ticket.findUnique({
+        where: {
+          id: ticket?.id,
+        },
+      });
+
+      if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
+        return response({ success: false, message: "Unauthorized" });
+      }
+    }
+
     const parsedData = upsertTicketFormSchema.parse(formData);
 
     await prisma.ticket.upsert({
@@ -85,5 +86,41 @@ export const deleteTicket = async (id: string) => {
   return response({
     success: true,
     message: "Ticket deleted",
+  });
+};
+
+export const updateTicketStatus = async (status: TicketStatus, id: string) => {
+  const session = await getSessionOrRedirect();
+
+  try {
+    const foundTicket = await prisma.ticket.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
+      return response({ success: false, message: "Unauthorized" });
+    }
+
+    await prisma.ticket.update({
+      data: {
+        status,
+      },
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    return errorResponse(error);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/tickets");
+  revalidatePath(`/tickets/${id}`);
+
+  return response({
+    success: true,
+    message: "Ticket status updated",
   });
 };

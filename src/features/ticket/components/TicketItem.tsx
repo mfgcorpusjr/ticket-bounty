@@ -71,8 +71,9 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
           <>
             {_isOwner && (
               <>
-                {editTicketLink} <DeleteTicketButton id={ticket.id} />{" "}
-                <TicketMoreMenu />
+                {editTicketLink}
+                <DeleteTicketButton id={ticket.id} />
+                <TicketMoreMenu ticket={ticket} />
               </>
             )}
           </>
@@ -80,7 +81,8 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
           <>
             {_isOwner ? (
               <>
-                {ticketDetailsLink} {editTicketLink}
+                {ticketDetailsLink}
+                {editTicketLink}
               </>
             ) : (
               <>{ticketDetailsLink}</>
