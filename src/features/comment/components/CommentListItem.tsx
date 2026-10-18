@@ -25,7 +25,9 @@ export default function CommentListItem({ comment }: Props) {
         </CardContent>
       </Card>
 
-      {comment.isOwner && <DeleteCommentButton id={comment.id} />}
+      {comment.isOwner && (
+        <DeleteCommentButton id={comment.id} ticketId={comment.ticketId} />
+      )}
     </div>
   );
 }

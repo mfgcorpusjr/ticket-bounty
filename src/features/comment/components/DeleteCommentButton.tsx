@@ -11,11 +11,15 @@ import useDeleteComment from "@/features/comment/hooks/useDeleteComment";
 
 type Props = {
   id: string;
+  ticketId: string;
 };
 
-export default function DeleteCommentButton({ id }: Props) {
+export default function DeleteCommentButton({ id, ticketId }: Props) {
   const [open, setOpen] = useState(false);
-  const { isPending, handleDeleteComment, isSuccess } = useDeleteComment(id);
+  const { isPending, handleDeleteComment, isSuccess } = useDeleteComment(
+    id,
+    ticketId,
+  );
 
   useEffect(() => {
     if (isSuccess) {

@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { deleteComment } from "@/features/comment/utils/actions";
 
-const useDeleteComment = (id: string) => {
+const useDeleteComment = (id: string, ticketId: string) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ const useDeleteComment = (id: string) => {
       if (success) {
         toast.success(message);
         queryClient.invalidateQueries({
-          queryKey: ["tickets"],
+          queryKey: ["tickets", ticketId, "comments"],
         });
         setIsSuccess(true);
       } else {
