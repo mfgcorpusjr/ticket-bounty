@@ -1,3 +1,5 @@
+import { ComponentProps } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -15,16 +17,17 @@ type DeleteDialogProps = {
   title?: string;
   description?: string;
   children: React.ReactNode;
-};
+} & ComponentProps<typeof Dialog>;
 
 export default function ConfirmDialog({
   trigger,
   title = "Are you absolutely sure?",
   description = "This action cannot be undone. Make sure you understand the consequences.",
   children,
+  ...rest
 }: DeleteDialogProps) {
   return (
-    <Dialog>
+    <Dialog {...rest}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent>
