@@ -6,7 +6,6 @@ import {
   UpsertTicketFormData,
   upsertTicketFormSchema,
 } from "@/features/ticket/utils/schemas";
-import type { AppTicket } from "@/features/ticket/utils/types";
 import { getSessionOrRedirect } from "@/features/auth/utils/helpers";
 import { prisma } from "@/lib/prisma";
 import { response, errorResponse } from "@/utils/response";
@@ -15,15 +14,15 @@ import { TicketStatus } from "@/generated/prisma/enums";
 
 export const upsertTicket = async (
   formData: UpsertTicketFormData,
-  ticket?: AppTicket,
+  id?: string,
 ) => {
   const session = await getSessionOrRedirect();
 
   try {
-    if (ticket) {
+    if (id) {
       const foundTicket = await prisma.ticket.findUnique({
         where: {
-          id: ticket?.id,
+          id,
         },
       });
 
@@ -41,7 +40,7 @@ export const upsertTicket = async (
       },
       update: parsedData,
       where: {
-        id: ticket?.id ?? "",
+        id: id ?? "",
       },
     });
   } catch (error) {
@@ -53,7 +52,7 @@ export const upsertTicket = async (
 
   return response({
     success: true,
-    message: ticket ? "Ticket updated" : "Ticket created",
+    message: id ? "Ticket updated" : "Ticket created",
   });
 };
 

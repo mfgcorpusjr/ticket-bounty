@@ -27,7 +27,7 @@ const useUpsertTicket = (ticket?: AppTicket) => {
 
   const handleUpsertTicket = (formData: UpsertTicketFormData) => {
     startTransition(async () => {
-      const { success, message } = await upsertTicket(formData, ticket);
+      const { success, message } = await upsertTicket(formData, ticket?.id);
 
       if (success) {
         toast.success(message);
