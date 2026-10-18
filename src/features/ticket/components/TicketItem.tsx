@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SquareArrowOutUpRightIcon, PencilIcon } from "lucide-react";
-import { format } from "date-fns";
 
 import {
   Card,
@@ -18,6 +17,7 @@ import type { AppTicket } from "@/features/ticket/utils/types";
 import { formatCurrency } from "@/utils/currency";
 import { getSession } from "@/features/auth/utils/helpers";
 import { isOwner } from "@/utils/entity";
+import { formatDate } from "@/utils/date";
 
 type Props = {
   ticket: AppTicket & { user: { email: string } };
@@ -59,7 +59,7 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
 
         <CardFooter className="flex justify-between items-center gap-8 text-xs text-muted-foreground">
           <p>
-            {format(ticket.deadline, "yyyy-MM-dd")} by {ticket.user.email}
+            {formatDate(ticket.deadline)} by {ticket.user.email}
           </p>
 
           <p>{formatCurrency(ticket.bounty)}</p>
