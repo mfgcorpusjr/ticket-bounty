@@ -55,7 +55,7 @@ export default function UpsertTicketForm({
 
           <Button disabled={isPending}>
             {isPending && <Spinner data-icon="inline-start" />}
-            Create
+            {ticket ? "Update" : "Create"}
           </Button>
         </form>
       </CardContent>

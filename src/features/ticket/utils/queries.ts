@@ -2,8 +2,20 @@ import { prisma } from "@/lib/prisma";
 import { castTicketBountyToNumber } from "@/features/ticket/utils/helpers";
 
 export const getTicket = async (id: string) => {
-  const ticket = await prisma.ticket.findUnique({ where: { id } });
-  return ticket ? castTicketBountyToNumber(ticket) : null;
+  const ticket = await prisma.ticket.findUnique({
+    include: {
+      user: {
+        select: {
+          email: true,
+        },
+      },
+    },
+    where: {
+      id,
+    },
+  });
+
+  return ticket ? { ...ticket, ...castTicketBountyToNumber(ticket) } : null;
 };
 
 export const getTickets = async () => {

@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import TicketItemTitle from "@/features/ticket/components/TicketItemTitle";
+import DeleteTicketButton from "@/features/ticket/components/DeleteTicketButton";
+import TicketMoreMenu from "@/features/ticket/components/TicketMoreMenu";
 
 import type { AppTicket } from "@/features/ticket/utils/types";
 import { formatCurrency } from "@/utils/currency";
@@ -19,9 +21,10 @@ import { isOwner } from "@/utils/entity";
 
 type Props = {
   ticket: AppTicket & { user: { email: string } };
+  isDetail?: boolean;
 };
 
-export default async function TicketItem({ ticket }: Props) {
+export default async function TicketItem({ ticket, isDetail }: Props) {
   const session = await getSession();
   const _isOwner = isOwner(session?.user.id ?? "", ticket);
 
@@ -64,13 +67,24 @@ export default async function TicketItem({ ticket }: Props) {
       </Card>
 
       <div className="flex flex-col gap-2">
-        {_isOwner ? (
+        {isDetail ? (
           <>
-            {ticketDetailsLink}
-            {editTicketLink}
+            {_isOwner && (
+              <>
+                {editTicketLink} <DeleteTicketButton /> <TicketMoreMenu />
+              </>
+            )}
           </>
         ) : (
-          <>{ticketDetailsLink}</>
+          <>
+            {_isOwner ? (
+              <>
+                {ticketDetailsLink} {editTicketLink}
+              </>
+            ) : (
+              <>{ticketDetailsLink}</>
+            )}
+          </>
         )}
       </div>
     </div>
