@@ -55,3 +55,35 @@ export const upsertTicket = async (
     message: ticket ? "Ticket updated" : "Ticket created",
   });
 };
+
+export const deleteTicket = async (id: string) => {
+  const session = await getSessionOrRedirect();
+
+  try {
+    const foundTicket = await prisma.ticket.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
+      return response({ success: false, message: "Unauthorized" });
+    }
+
+    await prisma.ticket.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    return errorResponse(error);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/tickets");
+
+  return response({
+    success: true,
+    message: "Ticket deleted",
+  });
+};
