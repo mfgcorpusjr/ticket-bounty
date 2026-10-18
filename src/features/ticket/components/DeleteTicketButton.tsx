@@ -3,8 +3,8 @@
 import { TrashIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import ConfirmDialog from "@/components/ConfirmDialog";
+import SubmitButton from "@/components/form/SubmitButton";
 
 import useDeleteTicket from "@/features/ticket/hooks/useDeleteTicket";
 
@@ -23,10 +23,9 @@ export default function DeleteTicketButton({ id }: Props) {
         </Button>
       }
     >
-      <Button disabled={isPending} onClick={handleDeleteTicket}>
-        {isPending && <Spinner data-icon="inline-start" />}
+      <SubmitButton isPending={isPending} onClick={handleDeleteTicket}>
         Delete
-      </Button>
+      </SubmitButton>
     </ConfirmDialog>
   );
 }

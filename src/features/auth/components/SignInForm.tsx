@@ -11,8 +11,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import FormInput from "@/components/form/FormInput";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import SubmitButton from "@/components/form/SubmitButton";
 
 import useSignIn from "@/features/auth/hooks/useSignIn";
 
@@ -40,10 +39,7 @@ export default function SignInForm() {
             placeholder="Password"
           />
 
-          <Button disabled={isPending}>
-            {isPending && <Spinner data-icon="inline-start" />}
-            Sign In
-          </Button>
+          <SubmitButton isPending={isPending}>Sign In</SubmitButton>
         </form>
       </CardContent>
 

@@ -7,11 +7,10 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import FormInput from "@/components/form/FormInput";
-import FormDatePicker from "@/components/form/FormDatePicker";
 import FormTextarea from "@/components/form/FormTextarea";
+import FormDatePicker from "@/components/form/FormDatePicker";
+import SubmitButton from "@/components/form/SubmitButton";
 
 import useUpsertTicket from "@/features/ticket/hooks/useUpsertTicket";
 import type { AppTicket } from "@/features/ticket/utils/types";
@@ -53,10 +52,9 @@ export default function UpsertTicketForm({
 
           <FormInput name="bounty" control={form.control} label="Bounty" />
 
-          <Button disabled={isPending}>
-            {isPending && <Spinner data-icon="inline-start" />}
+          <SubmitButton isPending={isPending}>
             {ticket ? "Update" : "Create"}
-          </Button>
+          </SubmitButton>
         </form>
       </CardContent>
     </Card>
