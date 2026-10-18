@@ -2,8 +2,8 @@
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { Spinner } from "@/components/ui/spinner";
 import Placeholder from "@/components/Placeholder";
+import Spinner from "@/components/Spinner";
 import CommentListItem from "@/features/comment/components/CommentListItem";
 import CommentListItemSkeleton from "@/features/comment/components/CommentListItemSkeleton";
 
@@ -27,7 +27,7 @@ export default function CommentList({ ticketId }: Props) {
       dataLength={dateLength}
       next={fetchNextPage}
       hasMore={hasNextPage}
-      loader={<Spinner />}
+      loader={<></>}
     >
       <div className="flex flex-col gap-4 m-0.5 ml-8">
         {isLoading &&
