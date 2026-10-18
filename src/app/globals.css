@@ -129,7 +129,7 @@
 }
 
 @theme {
-  --animate-fade-in-from-top: fade-in-from-top 1s ease-in-out;
+  --animate-fade-in-from-top: fade-in-from-top 500ms ease-in-out;
 
   @keyframes fade-in-from-top {
     from {

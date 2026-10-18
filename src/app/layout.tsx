@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/globals.css";
 
 import ThemeProvider from "@/features/theme/providers/ThemeProvider";
+import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/sonner";
 import NavBar from "@/components/NavBar";
 import Container from "@/components/Container";
@@ -25,13 +26,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
-          <NavBar />
+          <Providers>
+            <NavBar />
 
-          <Container className="flex-1 flex flex-col py-24">
-            {children}
-          </Container>
+            <Container className="flex-1 flex flex-col py-24">
+              {children}
+            </Container>
 
-          <Toaster />
+            <Toaster />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
