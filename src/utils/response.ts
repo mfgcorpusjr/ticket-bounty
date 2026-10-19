@@ -5,15 +5,15 @@ type Response = {
   message: string;
 };
 
-export const response = (response: Response) => response;
+export const toSettle = (response: Response) => response;
 
-export const errorResponse = (error: unknown) => {
+export const toError = (error: unknown) => {
   if (error instanceof ZodError) {
-    return response({ success: false, message: "Validation failed" });
+    return toSettle({ success: false, message: "Validation failed" });
   } else if (error instanceof Error) {
-    return response({ success: false, message: error.message });
+    return toSettle({ success: false, message: error.message });
   } else {
-    return response({
+    return toSettle({
       success: false,
       message: "An unknown error has occurred",
     });

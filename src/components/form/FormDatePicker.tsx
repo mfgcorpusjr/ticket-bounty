@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { formatDate } from "@/utils/date";
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
@@ -49,7 +50,7 @@ export default function FormDate<T extends FieldValues>({
                 <CalendarIcon />
 
                 {field.value ? (
-                  format(field.value, "PPP")
+                  formatDate(field.value)
                 ) : (
                   <span>Pick a date</span>
                 )}

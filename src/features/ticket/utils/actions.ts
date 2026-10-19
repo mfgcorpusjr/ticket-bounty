@@ -8,7 +8,7 @@ import {
 } from "@/features/ticket/utils/schemas";
 import { getSessionOrRedirect } from "@/features/auth/utils/helpers";
 import { prisma } from "@/lib/prisma";
-import { response, errorResponse } from "@/utils/response";
+import { toSettle, toError } from "@/utils/response";
 import { isOwner } from "@/utils/entity";
 import { TicketStatus } from "@/generated/prisma/enums";
 
@@ -27,7 +27,7 @@ export const upsertTicket = async (
       });
 
       if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
-        return response({ success: false, message: "Unauthorized" });
+        return toSettle({ success: false, message: "Unauthorized" });
       }
     }
 
@@ -44,13 +44,13 @@ export const upsertTicket = async (
       },
     });
   } catch (error) {
-    return errorResponse(error);
+    return toError(error);
   }
 
   revalidatePath("/");
   revalidatePath("/tickets");
 
-  return response({
+  return toSettle({
     success: true,
     message: id ? "Ticket updated" : "Ticket created",
   });
@@ -67,7 +67,7 @@ export const deleteTicket = async (id: string) => {
     });
 
     if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
-      return response({ success: false, message: "Unauthorized" });
+      return toSettle({ success: false, message: "Unauthorized" });
     }
 
     await prisma.ticket.delete({
@@ -76,13 +76,13 @@ export const deleteTicket = async (id: string) => {
       },
     });
   } catch (error) {
-    return errorResponse(error);
+    return toError(error);
   }
 
   revalidatePath("/");
   revalidatePath("/tickets");
 
-  return response({
+  return toSettle({
     success: true,
     message: "Ticket deleted",
   });
@@ -99,7 +99,7 @@ export const updateTicketStatus = async (status: TicketStatus, id: string) => {
     });
 
     if (!foundTicket || !isOwner(session.user.id, foundTicket)) {
-      return response({ success: false, message: "Unauthorized" });
+      return toSettle({ success: false, message: "Unauthorized" });
     }
 
     await prisma.ticket.update({
@@ -111,14 +111,14 @@ export const updateTicketStatus = async (status: TicketStatus, id: string) => {
       },
     });
   } catch (error) {
-    return errorResponse(error);
+    return toError(error);
   }
 
   revalidatePath("/");
   revalidatePath("/tickets");
   revalidatePath(`/tickets/${id}`);
 
-  return response({
+  return toSettle({
     success: true,
     message: "Ticket status updated",
   });

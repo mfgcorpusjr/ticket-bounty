@@ -3,7 +3,7 @@
 import { getSessionOrRedirect } from "@/features/auth/utils/helpers";
 import { prisma } from "@/lib/prisma";
 import { isOwner } from "@/utils/entity";
-import { response, errorResponse } from "@/utils/response";
+import { toSettle, toError } from "@/utils/response";
 import {
   type CreateCommentFormData,
   createCommentFormSchema,
@@ -26,10 +26,10 @@ export const createComment = async (
       },
     });
   } catch (error) {
-    return errorResponse(error);
+    return toError(error);
   }
 
-  return response({
+  return toSettle({
     success: true,
     message: "Comment created",
   });
@@ -46,7 +46,7 @@ export const deleteComment = async (id: string) => {
     });
 
     if (!foundComment || !isOwner(session.user.id, foundComment)) {
-      return response({ success: false, message: "Unauthorized" });
+      return toSettle({ success: false, message: "Unauthorized" });
     }
 
     await prisma.comment.delete({
@@ -55,10 +55,10 @@ export const deleteComment = async (id: string) => {
       },
     });
   } catch (error) {
-    return errorResponse(error);
+    return toError(error);
   }
 
-  return response({
+  return toSettle({
     success: true,
     message: "Comment deleted",
   });
