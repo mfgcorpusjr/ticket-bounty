@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import Breadcrumbs from "@/components/Breadcrumbs";
 import TicketItem from "@/features/ticket/components/TicketItem";
 import CreateCommentForm from "@/features/comment/components/CreateCommentForm";
 import CommentList from "@/features/comment/components/CommentList";
@@ -20,13 +21,22 @@ export default async function TicketDetailsPage({ params }: Props) {
     redirect("/tickets");
   }
 
+  const breadcrumbItems = [
+    { label: "Tickets", href: "/tickets" },
+    { label: ticket.title },
+  ];
+
   return (
-    <div className="flex-1 flex flex-col gap-8 w-full max-w-xl mx-auto">
-      <TicketItem isDetail ticket={ticket} />
+    <div className="space-y-8">
+      <Breadcrumbs items={breadcrumbItems} />
 
-      <CreateCommentForm ticketId={ticket.id} />
+      <div className="w-full max-w-xl mx-auto space-y-8">
+        <TicketItem isDetail ticket={ticket} />
 
-      <CommentList ticketId={ticket.id} />
+        <CreateCommentForm ticketId={ticket.id} />
+
+        <CommentList ticketId={ticket.id} />
+      </div>
     </div>
   );
 }

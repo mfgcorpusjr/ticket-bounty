@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import Breadcrumbs from "@/components/Breadcrumbs";
 import UpsertTicketForm from "@/features/ticket/components/UpsertTicketForm";
 
 import { getTicket } from "@/features/ticket/utils/queries";
@@ -21,9 +22,17 @@ export default async function EditTicketPage({ params }: Props) {
     redirect("/tickets");
   }
 
+  const breadcrumbItems = [
+    { label: "Tickets", href: "/tickets" },
+    { label: ticket.title, href: `/tickets/${ticket.id}` },
+    { label: "Update" },
+  ];
+
   return (
-    <div className="flex-1 flex flex-col justify-center items-center">
-      <div className="w-full max-w-xl mx-auto">
+    <div className="flex-1 flex flex-col">
+      <Breadcrumbs items={breadcrumbItems} />
+
+      <div className="flex-1 flex flex-col justify-center w-full max-w-xl mx-auto">
         <UpsertTicketForm
           title="Update Ticket"
           description="Update an existing ticket"
