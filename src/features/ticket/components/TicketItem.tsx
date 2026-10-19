@@ -59,7 +59,8 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
 
         <CardFooter className="flex justify-between items-center gap-8 text-xs text-muted-foreground">
           <p>
-            {formatDate(ticket.deadline)} by {ticket.user.email}
+            {formatDate(ticket.deadline)} by{" "}
+            {_isOwner ? "You" : ticket.user.email}
           </p>
 
           <p>{formatCurrency(ticket.bounty)}</p>
