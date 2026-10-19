@@ -20,9 +20,10 @@ export default function CreateCommentForm({ ticketId }: Props) {
   const { form, handleCreateComment, isPending } = useCreateComment(ticketId);
 
   return (
-    <Card>
+    <Card className="animate-fade-in-from-top">
       <CardHeader>
         <CardTitle className="text-xl">Create Comment</CardTitle>
+
         <CardDescription>A new comment will be created</CardDescription>
       </CardHeader>
 

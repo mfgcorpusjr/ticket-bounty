@@ -3,7 +3,6 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Placeholder from "@/components/Placeholder";
-import Spinner from "@/components/Spinner";
 import CommentListItem from "@/features/comment/components/CommentListItem";
 import CommentListItemSkeleton from "@/features/comment/components/CommentListItemSkeleton";
 

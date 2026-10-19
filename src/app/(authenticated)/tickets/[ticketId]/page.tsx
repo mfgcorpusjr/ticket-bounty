@@ -21,14 +21,12 @@ export default async function TicketDetailsPage({ params }: Props) {
   }
 
   return (
-    <div className="flex-1 flex flex-col gap-8">
-      <div className="w-full max-w-xl mx-auto flex-1 flex flex-col gap-8">
-        <TicketItem isDetail ticket={ticket} />
+    <div className="flex-1 flex flex-col gap-8 w-full max-w-xl mx-auto">
+      <TicketItem isDetail ticket={ticket} />
 
-        <CreateCommentForm ticketId={ticket.id} />
+      <CreateCommentForm ticketId={ticket.id} />
 
-        <CommentList ticketId={ticket.id} />
-      </div>
+      <CommentList ticketId={ticket.id} />
     </div>
   );
 }

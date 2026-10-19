@@ -19,9 +19,10 @@ export default function SignUpForm() {
   const { form, handleSignUp, isPending } = useSignUp();
 
   return (
-    <Card className="w-full max-w-md animate-fade-in-from-top">
+    <Card className="animate-fade-in-from-top">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
+
         <CardDescription>Create an account to get started</CardDescription>
       </CardHeader>
 

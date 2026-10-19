@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import {
-  UpsertTicketFormData,
+  type UpsertTicketFormData,
   upsertTicketFormSchema,
 } from "@/features/ticket/utils/schemas";
 import { getSessionOrRedirect } from "@/features/auth/utils/helpers";

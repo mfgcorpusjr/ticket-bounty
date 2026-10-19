@@ -19,9 +19,10 @@ export default function SignInForm() {
   const { form, handleSignIn, isPending } = useSignIn();
 
   return (
-    <Card className="w-full max-w-md animate-fade-in-from-top">
+    <Card className="animate-fade-in-from-top">
       <CardHeader>
         <CardTitle className="text-xl">Sign In</CardTitle>
+
         <CardDescription>Sign in to your account</CardDescription>
       </CardHeader>
 

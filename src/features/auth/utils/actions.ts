@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 import {
-  SignUpFormData,
+  type SignUpFormData,
   signUpFormSchema,
-  SignInFormData,
+  type SignInFormData,
   signInFormSchema,
 } from "@/features/auth/utils/schemas";
 import { auth } from "@/lib/auth";
