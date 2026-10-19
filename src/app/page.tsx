@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import Heading from "@/components/Heading";
 import Spinner from "@/components/Spinner";
-import TicketList from "@/features/ticket/components/TicketList";
+import TicketListWrapper from "@/features/ticket/components/TicketListWrapper";
 
 export default function HomePage() {
   return (
@@ -12,11 +12,9 @@ export default function HomePage() {
         description="Tickets by everyone at one place"
       />
 
-      <div className="w-full max-w-xl mx-auto flex-1 flex flex-col gap-4">
-        <Suspense fallback={<Spinner />}>
-          <TicketList />
-        </Suspense>
-      </div>
+      <Suspense fallback={<Spinner />}>
+        <TicketListWrapper />
+      </Suspense>
     </div>
   );
 }

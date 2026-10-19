@@ -22,7 +22,7 @@ export default async function AccountDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarFallback className="font-bold uppercase">
+          <AvatarFallback className="text-foreground font-bold uppercase">
             {session?.user.email[0]}
           </AvatarFallback>
         </Avatar>

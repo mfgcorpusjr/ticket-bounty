@@ -18,8 +18,11 @@ export const getTicket = async (id: string) => {
   return ticket ? { ...ticket, ...castTicketBountyToNumber(ticket) } : null;
 };
 
-export const getTickets = async () => {
+export const getTickets = async (userId?: string) => {
   const tickets = await prisma.ticket.findMany({
+    where: {
+      userId,
+    },
     include: {
       user: {
         select: {
