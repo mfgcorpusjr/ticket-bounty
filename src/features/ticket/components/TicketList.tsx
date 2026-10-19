@@ -1,15 +1,13 @@
 import Placeholder from "@/components/Placeholder";
 import TicketItem from "@/features/ticket/components/TicketItem";
 
-import { getTickets } from "@/features/ticket/utils/queries";
+import type { AppTicket } from "@/features/ticket/utils/types";
 
 type Props = {
-  userId?: string;
+  tickets: (AppTicket & { user: { email: string } })[];
 };
 
-export default async function TicketList({ userId }: Props) {
-  const tickets = await getTickets(userId);
-
+export default async function TicketList({ tickets }: Props) {
   if (tickets.length === 0) {
     return <Placeholder text="No ticket found" />;
   }
