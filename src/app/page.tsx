@@ -4,7 +4,23 @@ import Heading from "@/components/Heading";
 import Spinner from "@/components/Spinner";
 import TicketListWrapper from "@/features/ticket/components/TicketListWrapper";
 
-export default function HomePage() {
+import type { TicketQuery } from "@/features/ticket/utils/types";
+
+type Props = {
+  searchParams: Promise<{
+    page?: string;
+    pageSize?: string;
+  }>;
+};
+
+export default async function HomePage({ searchParams }: Props) {
+  const resolvedSearchParams = await searchParams;
+
+  const ticketQuery: TicketQuery = {
+    page: Number(resolvedSearchParams.page) || 1,
+    pageSize: Number(resolvedSearchParams.pageSize) || 5,
+  };
+
   return (
     <div className="flex-1 flex flex-col gap-8">
       <Heading
@@ -13,7 +29,7 @@ export default function HomePage() {
       />
 
       <Suspense fallback={<Spinner />}>
-        <TicketListWrapper />
+        <TicketListWrapper ticketQuery={ticketQuery} />
       </Suspense>
     </div>
   );

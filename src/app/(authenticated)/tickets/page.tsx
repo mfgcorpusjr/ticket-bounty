@@ -6,9 +6,24 @@ import UpsertTicketForm from "@/features/ticket/components/UpsertTicketForm";
 import TicketListWrapper from "@/features/ticket/components/TicketListWrapper";
 
 import { getSession } from "@/features/auth/utils/helpers";
+import type { TicketQuery } from "@/features/ticket/utils/types";
 
-export default async function TicketsPage() {
+type Props = {
+  searchParams: Promise<{
+    page?: string;
+    pageSize?: string;
+  }>;
+};
+
+export default async function TicketsPage({ searchParams }: Props) {
   const session = await getSession();
+
+  const resolvedSearchParams = await searchParams;
+
+  const ticketQuery: TicketQuery = {
+    page: Number(resolvedSearchParams.page) || 1,
+    pageSize: Number(resolvedSearchParams.pageSize) || 5,
+  };
 
   return (
     <div className="flex-1 flex flex-col gap-8">
@@ -22,7 +37,10 @@ export default async function TicketsPage() {
       </div>
 
       <Suspense fallback={<Spinner />}>
-        <TicketListWrapper userId={session?.user.id} />
+        <TicketListWrapper
+          ticketQuery={ticketQuery}
+          userId={session?.user.id}
+        />
       </Suspense>
     </div>
   );
