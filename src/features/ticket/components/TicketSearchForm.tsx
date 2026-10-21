@@ -17,7 +17,7 @@ type Props = {
   placeholder?: string;
 };
 
-export default function SearchForm({
+export default function TicketSearchForm({
   ticketQuery,
   placeholder = "Search...",
 }: Props) {
