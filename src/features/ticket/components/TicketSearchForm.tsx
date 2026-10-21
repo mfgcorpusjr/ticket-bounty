@@ -48,7 +48,7 @@ export default function TicketSearchForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="flex-1" onSubmit={handleSubmit}>
       <InputGroup>
         <InputGroupInput placeholder={placeholder} ref={ref} />
 

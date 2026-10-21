@@ -1,4 +1,5 @@
 import TicketSearchForm from "@/features/ticket/components/TicketSearchForm";
+import TicketSorter from "@/features/ticket/components/TicketSorter";
 import TicketList from "@/features/ticket/components/TicketList";
 import TicketPagination from "@/features/ticket/components/TicketPagination";
 
@@ -18,10 +19,14 @@ export default async function TicketListWrapper({
 
   return (
     <div className="w-full max-w-xl mx-auto flex-1 flex flex-col gap-4">
-      <TicketSearchForm
-        ticketQuery={ticketQuery}
-        placeholder="Search tickets ..."
-      />
+      <div className="flex gap-2">
+        <TicketSearchForm
+          ticketQuery={ticketQuery}
+          placeholder="Search tickets ..."
+        />
+
+        <TicketSorter ticketQuery={ticketQuery} />
+      </div>
 
       <TicketList tickets={tickets} />
 

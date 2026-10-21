@@ -13,6 +13,7 @@ type Props = {
     page?: string;
     pageSize?: string;
     search?: string;
+    orderBy?: string;
   }>;
 };
 
@@ -25,6 +26,7 @@ export default async function TicketsPage({ searchParams }: Props) {
     page: Number(resolvedSearchParams.page) || 1,
     pageSize: Number(resolvedSearchParams.pageSize) || 5,
     search: resolvedSearchParams.search,
+    orderBy: resolvedSearchParams.orderBy || "newest",
   };
 
   return (

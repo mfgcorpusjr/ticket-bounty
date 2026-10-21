@@ -6,4 +6,5 @@ export type TicketQuery = {
   page: number;
   pageSize: number;
   search?: string;
+  orderBy: string;
 };

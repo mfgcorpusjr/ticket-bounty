@@ -43,7 +43,7 @@ export const getTickets = async (ticketQuery: TicketQuery, userId?: string) => {
         },
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: ticketQuery.orderBy === "newest" ? "desc" : "asc",
       },
       skip,
       take,
