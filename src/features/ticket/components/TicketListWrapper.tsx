@@ -1,3 +1,4 @@
+import SearchForm from "@/components/SearchForm";
 import TicketList from "@/features/ticket/components/TicketList";
 import Pagination from "@/components/Pagination";
 
@@ -17,6 +18,8 @@ export default async function TicketListWrapper({
 
   return (
     <div className="w-full max-w-xl mx-auto flex-1 flex flex-col gap-4">
+      <SearchForm ticketQuery={ticketQuery} />
+
       <TicketList tickets={tickets} />
 
       <Pagination ticketQuery={ticketQuery} metadata={metadata} />

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { castTicketBountyToNumber } from "@/features/ticket/utils/helpers";
 import type { TicketQuery } from "@/features/ticket/utils/types";
+import type { TicketWhereInput } from "@/generated/prisma/models";
 
 export const getTicket = async (id: string) => {
   const ticket = await prisma.ticket.findUnique({
@@ -20,8 +21,12 @@ export const getTicket = async (id: string) => {
 };
 
 export const getTickets = async (ticketQuery: TicketQuery, userId?: string) => {
-  const where = {
+  const where: TicketWhereInput = {
     userId,
+    title: {
+      contains: ticketQuery.search,
+      mode: "insensitive",
+    },
   };
 
   const skip = (ticketQuery.page - 1) * ticketQuery.pageSize;

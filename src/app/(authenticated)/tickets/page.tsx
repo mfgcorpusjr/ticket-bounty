@@ -12,6 +12,7 @@ type Props = {
   searchParams: Promise<{
     page?: string;
     pageSize?: string;
+    search?: string;
   }>;
 };
 
@@ -23,6 +24,7 @@ export default async function TicketsPage({ searchParams }: Props) {
   const ticketQuery: TicketQuery = {
     page: Number(resolvedSearchParams.page) || 1,
     pageSize: Number(resolvedSearchParams.pageSize) || 5,
+    search: resolvedSearchParams.search,
   };
 
   return (

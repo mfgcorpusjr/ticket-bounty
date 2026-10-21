@@ -60,7 +60,10 @@ export default function Pagination({ ticketQuery, metadata }: Props) {
       </p>
 
       <div className="flex items-center gap-2">
-        <Select defaultValue="5" onValueChange={handlePageSize}>
+        <Select
+          defaultValue={ticketQuery.pageSize.toString()}
+          onValueChange={handlePageSize}
+        >
           <SelectTrigger size="sm">
             <SelectValue />
           </SelectTrigger>

@@ -12,7 +12,7 @@ export default async function NavBar() {
   const session = await getSession();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-background border-b py-4">
+    <nav className="fixed top-0 left-0 right-0 bg-background border-b py-4 z-10">
       <Container className="flex justify-between items-center">
         <Button asChild variant="ghost">
           <Link href="/">
