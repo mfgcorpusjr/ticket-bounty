@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cn } from "cn";
 import { SquareArrowOutUpRightIcon, PencilIcon } from "lucide-react";
 
 import {
@@ -49,12 +50,12 @@ export default async function TicketItem({ ticket, isDetail }: Props) {
       <Card className="flex-1">
         <CardHeader>
           <CardTitle>
-            <TicketItemTitle ticket={ticket} />
+            <TicketItemTitle ticket={ticket} isDetail={isDetail} />
           </CardTitle>
         </CardHeader>
 
         <CardContent>
-          <p>{ticket.content}</p>
+          <p className={cn({ "line-clamp-2": !isDetail })}>{ticket.content}</p>
         </CardContent>
 
         <CardFooter className="flex justify-between items-center gap-8 text-xs text-muted-foreground">
