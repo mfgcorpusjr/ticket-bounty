@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { SearchIcon } from "lucide-react";
 
@@ -21,18 +21,24 @@ export default function TicketSearchForm({
   ticketQuery,
   placeholder = "Search...",
 }: Props) {
-  const [search, setSearch] = useState(ticketQuery.search || "");
+  const ref = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (ticketQuery.search) {
+      ref.current!.value = ticketQuery.search;
+    }
+  }, [ticketQuery]);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const _searchParams = new URLSearchParams(searchParams);
-    const _search = search.trim();
+    const _search = ref.current!.value.trim();
     if (_search) {
-      _searchParams.set("search", search.trim());
+      _searchParams.set("search", _search);
     } else {
       _searchParams.delete("search");
     }
@@ -44,11 +50,7 @@ export default function TicketSearchForm({
   return (
     <form onSubmit={handleSubmit}>
       <InputGroup>
-        <InputGroupInput
-          placeholder={placeholder}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <InputGroupInput placeholder={placeholder} ref={ref} />
 
         <InputGroupAddon>
           <SearchIcon />
