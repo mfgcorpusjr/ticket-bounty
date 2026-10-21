@@ -54,7 +54,7 @@ export default function Pagination({ ticketQuery, metadata }: Props) {
   return (
     <div className="flex justify-between items-center gap-4">
       <p className="text-xs text-muted-foreground">
-        {metadata.skip + 1}-
+        {Math.min(metadata.skip + 1, metadata.count)}-
         {Math.min(metadata.take * ticketQuery.page, metadata.count)} of{" "}
         {metadata.count}
       </p>
